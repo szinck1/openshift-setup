@@ -54,6 +54,7 @@ Once the cluster is up you need to add the cluster admin role to a group.
   oadm groups new admingrp
   oadm groups add-users admingrp user1 user2
   oadm policy add-role-to-group cluster-admin admingrp
+  oadm policy add-role-to-group cluster-admin admgrp -n <namespace>
 ```
 
 Add a DEMO group
@@ -83,6 +84,18 @@ To remove a group
 If you logout by accident on the master
 ```
   oc login -u system:admin
+```
+
+### Setting up wildcard SSL
+
+```
+oc export secret router-certs -o yaml > router-certs.backup.$date.yaml
+mv router-certs.backup..yaml router-certs.backup.oct12.yaml
+oc delete secret router-certs
+oc secrets new router-certs tls.crt=master.server.crt tls.key=star_nonprod_apps_novascotia_ca.key --type='kubernetes.io/tls' --confirm
+oc rollout latest
+oc get ods
+oc logs router-pod
 ```
 
 #### Containerized Install
