@@ -4,9 +4,9 @@ This guide installs OCP 3.6 on Red Hat Atomic Host using the ansible-container i
 
 The inventory sets up a basic HA environment with 3 masters, 3 infrastructure nodes, 4 application nodes and 3 storage nodes.
 
-[Red Hat Atomic Host VMware Setup](atomic-setup.md)
+> [Red Hat Atomic Host VMware Setup](atomic-setup.md)
 
-[Inventory file](inventory)
+> [Inventory file](inventory)
 
 ## Atomic OS Setup
 
