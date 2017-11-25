@@ -85,7 +85,7 @@ Add the cluster admin role to a group.
 
 ### Setting up wildcard SSL for your Infrastructure nodes
 
-Concatenate the root/intermediate certs:
+Concatenate the wildcard and root/intermediate certs:
 ```
 cat star_domain_tld.crt Intermediate_CA.crt Root_CA.crt > master.server.crt
 ```
