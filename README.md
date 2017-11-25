@@ -78,7 +78,6 @@ Add the cluster admin role to a group.
   oadm policy add-role-to-group cluster-admin MYGROUP
 ```
 
-```
 
 ### Setting up wildcard SSL for your Infrastructure nodes
 
