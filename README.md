@@ -31,7 +31,7 @@ Now restart to reload iptables
 
 ### On the install source node
 
-### Generate roots public key and then distribute it to each OCP node
+Generate roots public key and then distribute it to each OCP node
 ```
 ssh-keygen -t rsa
 ssh-copy-id root@node1
