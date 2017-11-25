@@ -1,10 +1,8 @@
 ## Install OCP 3.6 on Red Hat Atomic Host
 
-This guide installs OCP 3.6 on Red Hat Atomic Host using the ansible-container installer, Gluster Container Native Storage and LDAP authentication. We use an external F5 Load balancer with SSL passthru.
+This guide installs OCP 3.6 on Red Hat Atomic Host using the ansible-container installer, Gluster Container Native Storage and LDAP authentication. An external LB is needed in front of the infrastructure and master nodes.
 
 [Inventory file](inventory.md)
-
-[BIG-IP configuration](bigip.md)
 
 ## Atomic Setup
 
