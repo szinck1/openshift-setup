@@ -1,0 +1,95 @@
+# Inventory File
+[OSEv3:children]
+masters
+nodes
+glusterfs
+etcd
+
+[OSEv3:vars]
+ansible_ssh_user=root
+openshift_deployment_type=openshift-enterprise
+containerized=true
+
+# This is the default domain for hosted apps
+openshift_master_default_subdomain=ocp.domain.tld
+
+# Use better persistant storage in prod
+openshift_disable_check=docker_storage
+
+# Comment the lines below to disable metrics for the cluster
+openshift_hosted_metrics_deploy=true
+#openshift_hosted_metrics_storage_kind=dynamic
+
+# Comment the lines below to disable logging for the cluster
+openshift_hosted_logging_deploy=true
+openshift_hosted_logging_storage_kind=dynamic
+
+# Change the console & API ports to 443, default is 8443
+
+openshift_master_console_port=443
+openshift_master_api_port=443
+
+
+# Auth
+openshift_master_identity_providers=[{'name': 'my_ldap_provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['displayname'], 'preferredUsername': ['sAMAccountName']}, 'bindDN': '', 'bindPassword': '', 'insecure': 'false', 'url': 'ldaps://yourldap.domain.tld/....'}]
+
+
+# GlusterFS
+openshift_storage_glusterfs_namespace=glusterfs
+openshift_storage_glusterfs_name=storage
+
+# Native high availbility cluster method with optional load balancer.
+# If no lb group is defined installer assumes that a load balancer has
+# been preconfigured. For installation the value of
+# openshift_master_cluster_hostname must resolve to the load balancer
+# or to one or all of the masters defined in the inventory if no load
+# balancer is present.
+openshift_master_cluster_method=native
+openshift_master_cluster_public_hostname=master.domain.tld
+openshift_master_cluster_hostname=master.domain.tld
+
+# Configure custom named certificates
+# NOTE: openshift_master_named_certificates is cached on masters and is an
+# additive fact, meaning that each run with a different set of certificates
+# will add the newly provided certificates to the cached set of certificates.
+#
+# An optional CA may be specified for each named certificate. CAs will
+# be added to the OpenShift CA bundle which allows for the named
+# certificate to be served for internal cluster communication.
+#
+# If you would like openshift_master_named_certificates to be overwritten with
+# the provided value, specify openshift_master_overwrite_named_certificates.
+openshift_master_overwrite_named_certificates=true
+#
+# Provide local certificate paths which will be deployed to masters
+openshift_master_named_certificates=[{"certfile": "/root/domain.tld.crt", "keyfile": "/root/domain.tld.key", "names": ["master.domain.tld"], "cafile": "/root/yourCA.crt"}]
+
+
+# host group for masters
+[masters]
+node1.domain.tld
+node2.domain.tld
+node3.domain.tld
+
+[etcd]
+node1.domain.tld
+node2.domain.tld
+node3.domain.tld
+
+# host group for nodes, includes region info
+[nodes]
+node4.domain.tld openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+node5.domain.tld openshift_node_labels="{'region': 'infra', 'zone': 'east'}"
+node6.domain.tld openshift_node_labels="{'region': 'infra', 'zone': 'west'}"
+node7.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'west'}" openshift_schedulable=false
+node8.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'east'}" openshift_schedulable=false
+node9.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'west'}" openshift_schedulable=false
+node10.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+node11.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
+node12.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+node13.domain.tld openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
+
+[glusterfs]
+node7.domain.tld glusterfs_devices='[ "/dev/sdb" ]'
+node8.domain.tld glusterfs_devices='[ "/dev/sdb" ]'
+node9.domain.tld glusterfs_devices='[ "/dev/sdb" ]'
