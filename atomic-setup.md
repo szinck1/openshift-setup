@@ -1,4 +1,4 @@
-## Setup Red Hat Atomic Host on VMware and Red Hat Satellite to host OpenShift Container Platform 3.6
+## Red Hat Atomic Host node configuration on VMware
 
 ### VMware Build
 To build a new VM choose a custom VM and use the following specs:
