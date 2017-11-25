@@ -29,9 +29,15 @@ add the following ***Right after `:INPUT ACCEPT [0:0]`***
 Now restart to reload iptables
 `systemctl restart iptables`
 
-#### On the install source node
+### On the install source node
 
-Copy the SSL certificate, key and the CA cert to /root
+## Generate roots public key and then distribute it to each OCP node
+```
+ssh-keygen -t rsa
+ssh-copy-id root@node1
+OR
+cat ~/.ssh/id_rsa.pub | ssh root@node1 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+```
 
 Download the latest Ansible installer image
 ```
